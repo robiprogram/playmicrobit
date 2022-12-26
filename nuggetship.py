@@ -1,13 +1,19 @@
 from microbit import display, button_a, button_b, sleep, Image
 import random
 
-# new nugget
-nugget_x = random.randint(0, 4)
-nugget_y = 0
+def new_nugget():
+    global nugget_x, nugget_y
+    nugget_x = random.randint(0, 4)
+    nugget_y = 0
 
-# init
-display.show(Image("99999"))
-player_x = 2
+def new_game():
+    global player_x, score
+    display.show(Image("99999"))
+    player_x = 2
+    score = 0
+    new_nugget()
+
+new_game()
 
 # main loop
 while True:
@@ -33,7 +39,9 @@ while True:
     # nugget end
     if nugget_y == 5:
         display.scroll("GAME OVER", delay=40)
-        break
+        display.show(score)
+        sleep(2000)
+        new_game()
     elif nugget_y == 4 and nugget_x == player_x:
-        display.show(Image.HAPPY)
-        break
+        score = score + 1
+        new_nugget()
