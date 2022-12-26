@@ -1,5 +1,6 @@
 from microbit import display, button_a, button_b, sleep, Image
 import random
+import music
 
 def new_nugget():
     global nugget_x, nugget_y
@@ -42,11 +43,13 @@ while True:
     if nugget_y == 5:
         life = life - 1
         if life == 0:
+            music.play(music.WAWAWAWAA, wait=False)
             display.scroll("GAME OVER", delay=40)
             display.show(score)
             sleep(2000)
             new_game()
         else:
+            music.play(music.POWER_DOWN)
             speed = speed + 200
             new_nugget()
     elif nugget_y == 4 and nugget_x == player_x:
