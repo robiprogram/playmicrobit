@@ -7,10 +7,11 @@ def new_nugget():
     nugget_y = 0
 
 def new_game():
-    global player_x, score
+    global player_x, score, speed
     display.show(Image("99999"))
     player_x = 2
     score = 0
+    speed = 800
     new_nugget()
 
 new_game()
@@ -35,7 +36,7 @@ while True:
         if nugget_y > 1:
             display.set_pixel(nugget_x, nugget_y - 1, 0)
         display.set_pixel(nugget_x, nugget_y, 4)
-    sleep(800)
+    sleep(speed)
     # nugget end
     if nugget_y == 5:
         display.scroll("GAME OVER", delay=40)
@@ -44,4 +45,6 @@ while True:
         new_game()
     elif nugget_y == 4 and nugget_x == player_x:
         score = score + 1
+        if speed > 250:
+            speed = speed - 70
         new_nugget()
